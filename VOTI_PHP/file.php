@@ -369,10 +369,15 @@ else if ($cognome != "") {
         $votiMateria = getVotiMaterie($cognome, $file);
         $medie_per_materia = calcolaVotiMateria($votiMateria);
 
-        // Creo la stringa risultato
-        $risultato = $media_generale;
+        // Crea tabella HTML -- GRAZIE CLAUDE PER L'AIUTO
+        echo "<table border='1' cellpadding='5' cellspacing='0'>";
+        echo "<tr><th>Materia</th><th><strong>MEDIA</strong></th></tr>";
+        // Righe materie
         foreach ($medie_per_materia as $materia => $media) {
-            echo "$materia: $media<br>";
+            echo "<tr>";
+            echo "<td><strong>$materia</strong></td>";
+            echo "<td>" . number_format($media, 2) . "</td>";
+            echo "</tr>";
         }
     }
 } 
@@ -414,8 +419,6 @@ else if ($classe != "") {
        
     }
     
-
-
     else if ($tipo_media == 'tabellone_classe') // -- GRAZIE CLAUDE PER L'AIUTO
     {
         // Ottieni voti per studente e materia
@@ -488,7 +491,7 @@ if ($risultato === null) {
 <head>
     <meta charset="UTF-8">
     <title>VOTI PHP</title>
-    
+
 </head>
 
 <body>
