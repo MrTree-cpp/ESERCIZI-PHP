@@ -400,55 +400,18 @@ else if ($classe != "") {
         $votiMateria = getVotiMaterieClasse($classe, $file);
         $medie_per_materia = calcolaVotiMateriaClasse($votiMateria);
      
-        // Ottieni tutte le materie presenti
-        $tutte_materie = [];
-        foreach ($medie_studenti as $studente => $materie) {
-            foreach ($materie as $materia => $media) {
-                if ($materia != 'MEDIA_GENERALE' && !in_array($materia, $tutte_materie)) {
-                    $tutte_materie[] = $materia;
-                }
-            }
-        }
-        sort($tutte_materie);
-        
-
         // Crea tabella HTML -- GRAZIE CLAUDE PER L'AIUTO
-        echo "<h2>Tabellone Classe: $classe</h2>";
         echo "<table border='1' cellpadding='5' cellspacing='0'>";
-        echo "<tr><th>Studente</th>";
-        
-        // Intestazioni materie
-        echo "<th>Materia</th>";
-        echo "<th><strong>MEDIA</strong></th></tr>";
-        
-        // Righe studenti
-        foreach ($medie_studenti as $studente => $materie) {
-            echo "<tr><td><strong>$studente</strong></td>";
-            
-            foreach ($tutte_materie as $materia) {
-                if (isset($materie[$materia])) {
-                    echo "<td>" . number_format($materie[$materia], 2) . "</td>";
-                } else {
-                    echo "<td>-</td>";
-                }
-            }
-            
-            echo "<td><strong>" . number_format($materie['MEDIA_GENERALE'], 2) . "</strong></td>";
+        echo "<tr><th>Materia</th><th><strong>MEDIA</strong></th></tr>";
+        // Righe materie
+        foreach ($medie_per_materia as $materia => $media) {
+            echo "<tr>";
+            echo "<td><strong>$materia</strong></td>";
+            echo "<td>" . number_format($media, 2) . "</td>";
             echo "</tr>";
         }
-        
-        echo "</table>";
-        
-        $risultato = "Tabellone visualizzato sopra";
-
-
-        /* 
-        // Creo la stringa risultato
-        $risultato = $media_generale;
-        foreach ($medie_per_materia as $materia => $media) {
-            echo "$materia: $media<br>";
         }
-        */
+       
     }
     
 
@@ -493,7 +456,12 @@ else if ($classe != "") {
                 }
             }
             
-            echo "<td><strong>" . number_format($materie['MEDIA_GENERALE'], 2) . "</strong></td>";
+            // Use the correct key for MEDIA_GENERALE if it exists, otherwise show '-'
+            if (isset($materie['MEDIA_GENERALE'])) {
+                echo "<td><strong>" . number_format($materie['MEDIA_GENERALE'], 2) . "</strong></td>";
+            } else {
+                echo "<td>-</td>";
+            }
             echo "</tr>";
         }
         
@@ -501,7 +469,7 @@ else if ($classe != "") {
         
         $risultato = "Tabellone visualizzato sopra";
     }
-}
+
 
 // Chiudo il file
 fclose($file);
@@ -520,6 +488,7 @@ if ($risultato === null) {
 <head>
     <meta charset="UTF-8">
     <title>VOTI PHP</title>
+    
 </head>
 
 <body>
