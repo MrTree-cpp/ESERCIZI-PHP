@@ -17,14 +17,9 @@ if (isset($_POST['elimina'])) {
     $trovato = false;
     
     $file = fopen("random-grades.csv", "r");
-    $prima_riga = true;
+    $header = fgets($file); // Salva l'header
     
     while (($line = fgets($file)) !== false) {
-        if ($prima_riga) {
-            $prima_riga = false;
-            continue;
-        }
-        
         $separated = explode(",", $line);
         
         // Controlla se corrisponde a tutti i campi
@@ -36,7 +31,8 @@ if (isset($_POST['elimina'])) {
             trim($separated[4]) == $data &&
             trim($separated[5]) == $voto &&
             trim($separated[6]) == $tipo &&
-            !$trovato) {
+            !$trovato) 
+        {
             // Salta questa riga (non aggiungerla all'array)
             $trovato = true;
             continue;
@@ -49,7 +45,7 @@ if (isset($_POST['elimina'])) {
     if ($trovato) {
         // Riscrivi il file senza la valutazione eliminata
         $file = fopen("random-grades.csv", "w");
-        fwrite($file, "cognome,nome,classe,disciplina,data_valutazione,voto,tipo\n");
+        fwrite($file, $header); // Scrivi l'header originale
         foreach ($valutazioni as $val) {
             fwrite($file, $val);
         }
@@ -103,7 +99,7 @@ if (isset($_POST['elimina'])) {
         
         <button type="submit" name="elimina">Elimina Valutazione</button>
         <br><br>
-        <a href="file.php">Torna alla pagina principale</a>
+        <a href="main.php">Torna alla pagina principale</a>
     </form>
 </body>
 </html>

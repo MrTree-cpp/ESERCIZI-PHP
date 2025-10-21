@@ -495,19 +495,22 @@ if ($risultato === null) {
 </head>
 
 <body>
-    <form action="file.php" method="post">
-        <input type="text" name="cognome" placeholder="Cognome Studente"><br>
-        <input type="text" name="classe" placeholder="Classe"><br>
-        <input type="text" name="materia" placeholder="Materia"><br>
+    <fieldset>
+        <form action="file.php" method="post">
+            <input type="text" name="cognome" placeholder="Cognome Studente"><br>
+            <input type="text" name="classe" placeholder="Classe"><br>
+            <input type="text" name="materia" placeholder="Materia"><br>
 
-        <label>Tipo di media:</label><br>
-        <input type="radio" name="tipo_media" value="media_generale" checked> Media Generale<br>
-        <input type="radio" name="tipo_media" value="media_per_materia"> Media per Materia<br>
-        <input type="radio" name="tipo_media" value="tabellone_classe"> Tabellone per Classe<br>
+            <label>Tipo di media:</label><br>
+            <input type="radio" name="tipo_media" value="media_generale" checked> Media Generale<br>
+            <input type="radio" name="tipo_media" value="media_per_materia"> Media per Materia<br>
+            <input type="radio" name="tipo_media" value="tabellone_classe"> Tabellone per Classe<br>
 
-        <button type="submit" name="send">Invia</button><br><br>
+            <button type="submit" name="send">Invia</button><br><br>
 
-        <input type="text" name="risultato" readonly value="<?php echo $risultato; ?>">
-    </form>
+            <input type="text" name="risultato" readonly value="<?php echo $risultato; ?>">
+        </form>
+    </fieldset>
+    <a href="main.php">Torna alla pagina principale</a>
 </body>
 </html>

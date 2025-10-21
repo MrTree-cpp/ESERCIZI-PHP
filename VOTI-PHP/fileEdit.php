@@ -1,4 +1,3 @@
-
 <?php
 // modifica_valutazione.php
 
@@ -28,14 +27,9 @@ if (isset($_POST['modifica'])) {
     $trovato = false;
     
     $file = fopen("random-grades.csv", "r");
-    $prima_riga = true;
+    $header = fgets($file); // Salva l'header
     
     while (($line = fgets($file)) !== false) {
-        if ($prima_riga) {
-            $prima_riga = false;
-            continue;
-        }
-        
         $separated = explode(",", $line);
         
         // Controlla se corrisponde ai dati vecchi
@@ -63,7 +57,7 @@ if (isset($_POST['modifica'])) {
     if ($trovato) {
         // Riscrivi il file con la valutazione modificata
         $file = fopen("random-grades.csv", "w");
-        fwrite($file, "cognome,nome,classe,disciplina,data_valutazione,voto,tipo\n");
+        fwrite($file, $header); // Scrivi l'header originale
         foreach ($valutazioni as $val) {
             fwrite($file, $val);
         }
@@ -151,7 +145,7 @@ if (isset($_POST['modifica'])) {
         <br>
         <button type="submit" name="modifica">Modifica Valutazione</button>
         <br><br>
-        <a href="file.php">Torna alla pagina principale</a>
+        <a href="main.php">Torna alla pagina principale</a>
     </form>
 </body>
 </html>
