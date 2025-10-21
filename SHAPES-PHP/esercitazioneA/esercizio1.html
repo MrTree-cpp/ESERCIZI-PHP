@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<head> 
+    <title> ESERCIZIO 1.1 </title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+</head>
+<body>
+    <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <form action="esercizio1.php" method="post">   
+        <div class="mb-3 mt-3">
+            <!-- CAMPO DEL LATO -->
+            <label for="number" class="form-label">Lunghezza del lato</label>
+            <input type="number" name="n" class="form-control">
+
+            <label for="choice" class="form-label">Scegli la Figura</label>
+
+            <!-- CAMPO DELLA FIGURA -->
+            <div class="form-check">
+                <input type="radio" name="choice"  value="tri_up">Triangolo
+            </div>
+
+            <div class="form-check">
+                <input type="radio" name="choice" value="tri_dw">Triangolo Capovolto
+            </div>
+            
+            <div class="form-check">
+                <input type="radio" name="choice" value="quad">Quadrato
+            </div>
+
+            <div class="form-check">
+                <input type="radio" name="choice" value="frame">Cornice
+            </div>
+
+            
+            
+
+        </div>
+        
+        <div class="col-12">
+            <input type="submit" value="Disegna", class="btn btn-primary"> 
+        </div>
+    </form>
+
+</body>
